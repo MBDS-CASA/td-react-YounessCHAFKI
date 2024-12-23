@@ -3,6 +3,8 @@ import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 import image from './assets/UnivCote.png'
+import data from './data.json';
+
 function Header(){
 
     return(
@@ -43,6 +45,42 @@ function Footer() {
     );
 }
 
+function getRandomItem(items) {
+    const randomIndex = Math.floor(Math.random() * items.length);
+    return items[randomIndex];
+}
+
+function RandomItem() {
+    const [item, setItem] = useState(getRandomItem(data));
+
+    const handleRandomize = () => {
+        const randomItem = getRandomItem(data);
+        setItem(randomItem);
+    };
+
+    return (
+        <div >
+
+            <h2>Information Aléatoire</h2>
+            <p >
+                <strong>Course :</strong> {item.course}
+            </p>
+            <p >
+                <strong>Student :</strong> {item.student.firstname} {item.student.lastname}
+            </p>
+            <p >
+                <strong>Date :</strong> {item.date}
+            </p>
+            <p >
+                <strong>Grade :</strong> {item.grade}
+            </p>
+            <button  onClick={handleRandomize}>
+                Tirer un autre élément
+            </button>
+        </div>
+    );
+}
+
 
 
 function App() {
@@ -65,7 +103,9 @@ function App() {
         <button onClick={() => setCount((count) => count + 1)}>
           count is {count}
         </button>
-        <p>
+          <RandomItem />
+
+          <p>
           Edit <code>src/App.jsx</code> and save to test HMR
         </p>
       </div>
