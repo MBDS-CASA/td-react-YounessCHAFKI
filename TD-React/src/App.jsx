@@ -9,7 +9,7 @@ function Header(){
 
     return(
         <header>
-            <img src={image} style={{width:'30%',height:'10%'}}/>
+            <img src={image} style={{width:'30%',height:'10%'}} alt={"Université cote d'Azur"}/>
             <h1>Introduction à React</h1>
             <h2>A la découverte des premières notions de React</h2>
         </header>
@@ -32,7 +32,6 @@ function MainContent() {
         </>
     );
 }
-
 function Footer() {
     const now = new Date();
     const year = now.getFullYear();
@@ -44,12 +43,78 @@ function Footer() {
         </footer>
     );
 }
+function DropdownMenu() {
+    const [isOpen, setIsOpen] = useState(false);
+    const menuItems = ["Notes", "Etudiants", "Matières", "A propos"];
 
+    const handleClick = (item) => {
+        alert(`Vous avez cliqué sur : ${item}`);
+        setIsOpen(false);
+    };
+
+    const toggleDropdown = () => {
+        setIsOpen(!isOpen);
+    };
+
+    const containerStyle = {
+        position: "absolute",
+        top: "10px",
+        left: "10px",
+    };
+
+    const buttonStyle = {
+        padding: "10px 20px",
+        backgroundColor: "#007BFF",
+        color: "#fff",
+        border: "none",
+        borderRadius: "5px",
+        cursor: "pointer",
+        fontSize: "16px",
+    };
+
+    const dropdownStyle = {
+        display: isOpen ? "block" : "none",
+        marginTop: "10px",
+        padding: "10px",
+        backgroundColor: "#7221ac",
+        border: "1px solid #ddd",
+        borderRadius: "5px",
+        listStyleType: "none",
+        position: "absolute",
+        zIndex: 1000,
+    };
+
+    const menuItemStyle = {
+        padding: "5px 10px",
+        cursor: "pointer",
+        fontSize: "16px",
+    };
+
+    return (
+        <div style={containerStyle}>
+            <button style={buttonStyle} onClick={toggleDropdown}>
+                Menu
+            </button>
+            <ul style={dropdownStyle}>
+                {menuItems.map((item) => (
+                    <li
+                        key={item}
+                        style={menuItemStyle}
+                        onClick={() => handleClick(item)}
+                        onMouseEnter={(e) => (e.target.style.backgroundColor = "#000000")}
+                        onMouseLeave={(e) => (e.target.style.backgroundColor = "transparent")}
+                    >
+                        {item}
+                    </li>
+                ))}
+            </ul>
+        </div>
+    );
+}
 function getRandomItem(items) {
     const randomIndex = Math.floor(Math.random() * items.length);
     return items[randomIndex];
 }
-
 function RandomItem() {
     const [item, setItem] = useState(getRandomItem(data));
 
@@ -61,7 +126,7 @@ function RandomItem() {
     return (
         <div >
 
-            <h2>Information Aléatoire</h2>
+            <h1>Information Aléatoire</h1>
             <p >
                 <strong>Course :</strong> {item.course}
             </p>
@@ -81,14 +146,13 @@ function RandomItem() {
     );
 }
 
-
-
 function App() {
   const [count, setCount] = useState(0)
 
   return (
     <>
       <div>
+          <DropdownMenu />
           <Header></Header>
           <MainContent></MainContent>
         <a href="https://vite.dev" target="_blank">
