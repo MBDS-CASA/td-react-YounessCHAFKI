@@ -1,6 +1,4 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
 import image from './assets/UnivCote.png'
 import data from './data.json';
@@ -123,23 +121,66 @@ function RandomItem() {
         setItem(randomItem);
     };
 
-    return (
-        <div >
+    const containerStyle = {
+        border: "1px solid #ddd",
+        borderRadius: "10px",
+        padding: "20px",
+        boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+        margin: "20px auto",
+        maxWidth: "400px",
+        textAlign: "center",
+        backgroundColor: "#f9f9f9",
+    };
 
-            <h1>Information Aléatoire</h1>
-            <p >
-                <strong>Course :</strong> {item.course}
+    const titleStyle = {
+        fontSize: "24px",
+        fontWeight: "bold",
+        marginBottom: "15px",
+        color: "#333",
+    };
+
+    const paragraphStyle = {
+        fontSize: "16px",
+        margin: "10px 0",
+        color: "#555",
+    };
+
+    const buttonStyle = {
+        padding: "10px 20px",
+        fontSize: "16px",
+        backgroundColor: "#007BFF",
+        color: "#fff",
+        border: "none",
+        borderRadius: "5px",
+        cursor: "pointer",
+        marginTop: "15px",
+    };
+
+    const buttonHoverStyle = {
+        backgroundColor: "#0056b3",
+    };
+
+    return (
+        <div style={containerStyle}>
+            <h1 style={titleStyle}>Information Aléatoire</h1>
+            <p style={paragraphStyle}>
+                <strong>Course:</strong> {item.course}
             </p>
-            <p >
-                <strong>Student :</strong> {item.student.firstname} {item.student.lastname}
+            <p style={paragraphStyle}>
+                <strong>Student:</strong> {item.student.firstname} {item.student.lastname}
             </p>
-            <p >
-                <strong>Date :</strong> {item.date}
+            <p style={paragraphStyle}>
+                <strong>Date:</strong> {item.date}
             </p>
-            <p >
-                <strong>Grade :</strong> {item.grade}
+            <p style={paragraphStyle}>
+                <strong>Grade:</strong> {item.grade}
             </p>
-            <button  onClick={handleRandomize}>
+            <button
+                style={buttonStyle}
+                onMouseOver={(e) => (e.target.style.backgroundColor = buttonHoverStyle.backgroundColor)}
+                onMouseOut={(e) => (e.target.style.backgroundColor = buttonStyle.backgroundColor)}
+                onClick={handleRandomize}
+            >
                 Tirer un autre élément
             </button>
         </div>
@@ -147,7 +188,6 @@ function RandomItem() {
 }
 
 function App() {
-  const [count, setCount] = useState(0)
 
   return (
     <>
@@ -155,27 +195,8 @@ function App() {
           <DropdownMenu />
           <Header></Header>
           <MainContent></MainContent>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
       </div>
-      <h1>Vite + MBDS + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-          <RandomItem />
-
-          <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+        <RandomItem />
         <Footer></Footer>
 
     </>
