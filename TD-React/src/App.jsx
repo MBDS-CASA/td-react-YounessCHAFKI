@@ -32,9 +32,13 @@ function MainContent() {
 }
 
 function Footer() {
+    const now = new Date();
+    const year = now.getFullYear();
+
     return (
         <footer >
-            <p>Tous droits réservés - Chafki Youness</p>
+
+            <p>Tous droits réservés © {year} - Chafki Youness</p>
         </footer>
     );
 }
