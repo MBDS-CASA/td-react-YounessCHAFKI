@@ -43,10 +43,12 @@ function Footer() {
 }
 function DropdownMenu() {
     const [isOpen, setIsOpen] = useState(false);
+    const [selectedMenu, setSelectedMenu] = useState(null);
+
     const menuItems = ["Notes", "Etudiants", "Matières", "A propos"];
 
-    const handleClick = (item) => {
-        alert(`Vous avez cliqué sur : ${item}`);
+    const handleClick = (menuItem) => {
+        setSelectedMenu(menuItem);
         setIsOpen(false);
     };
 
@@ -58,6 +60,8 @@ function DropdownMenu() {
         position: "absolute",
         top: "10px",
         left: "10px",
+        width: "200px",
+
     };
 
     const buttonStyle = {
@@ -82,10 +86,20 @@ function DropdownMenu() {
         zIndex: 1000,
     };
 
-    const menuItemStyle = {
+    const menuItemStyle = (item) => ({
         padding: "5px 10px",
         cursor: "pointer",
         fontSize: "16px",
+        backgroundColor: item === selectedMenu ? "#000000" : "transparent",
+        color: item === selectedMenu ? "#ffffff" : "#000000",
+    });
+
+    const contentStyle = {
+        marginTop: "80px",
+        padding: "20px",
+        backgroundColor: "rgba(3,213,255,0.47)",
+        borderRadius: "5px",
+        boxShadow: "0 2px 5px rgba(0, 0, 0, 0.1)",
     };
 
     return (
@@ -97,15 +111,24 @@ function DropdownMenu() {
                 {menuItems.map((item) => (
                     <li
                         key={item}
-                        style={menuItemStyle}
+                        style={menuItemStyle(item)}
                         onClick={() => handleClick(item)}
-                        onMouseEnter={(e) => (e.target.style.backgroundColor = "#000000")}
-                        onMouseLeave={(e) => (e.target.style.backgroundColor = "transparent")}
+                        onMouseEnter={(e) => (e.target.style.backgroundColor = "#333333")}
+                        onMouseLeave={(e) =>
+                            (e.target.style.backgroundColor =
+                                item === selectedMenu ? "#000000" : "transparent")
+                        }
                     >
                         {item}
                     </li>
                 ))}
             </ul>
+            {selectedMenu && (
+                <div style={contentStyle}>
+                    <h2>{selectedMenu}</h2>
+                    <p>Contenu du composant {selectedMenu}</p>
+                </div>
+            )}
         </div>
     );
 }
